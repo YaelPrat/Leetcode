@@ -1,71 +1,68 @@
 /**
- * @param {number[]} nums1
- * @param {number} m
- * @param {number[]} nums2
- * @param {number} n
- * @return {void} Do not return anything, modify nums1 in-place instead.
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
  */
-//
-var merge = function(nums1, m, nums2, n) {
-    let len= m+n;
-    for(let i= len; i>= 1 ; i--){
-        if(m == 0){
-            if(n>0){
-                for(let j= n-1; j>1; j--){
-                    nums1[i-1] = nums2[j];
-                }
+var removeElement = function(nums, val) {
+    let i = 0;
+    let j = nums.length -1;
+
+    while (i <= j) {
+        if(nums[i] === val){
+            if(nums[j] === val){
+                j--;
+            }
+            else{
+                nums[i] = nums[j] 
+                i++; j--;
             }
         }
-        if(n == 0){
-            return;
-        }
-        if(nums1[m-1] > nums2 [n-1]){
-            nums1[i-1] = nums1[m-1];
-            m--;
-        } 
         else{
-            nums1[i-1] = nums2[n-1];
-            n--;
-        } 
+            i++
+        }
     }
-    
+    return i;
 };
 
-let nums1 = [1, 2, 3, 0, 0, 0];
-let m = 3;
+// Helper function to sort the first k elements of nums
+var sort = function(nums, start, end) {
+    // Your sorting implementation (e.g., nums.sort((a, b) => a - b))
+    nums.slice(start, end).sort((a, b) => a - b);
 
-let nums2 = [2, 5, 6];
-let n = 3;
+};
 
-merge(nums1, m, nums2, n);
-console.log(nums1); // Expected output: [1, 2, 2, 3, 5, 6]
+// Test Case 1
+var nums1 = [3, 2, 2, 3];
+var val1 = 3;
+var expectedNums1 = [2, 2]; // Sorted array with no values equal to val1
 
-// let nums1 = [];
-// let m = 0;
+var nums2 = [];
+var val2 = 5;
+var expectedNums2 = [];
 
-// let nums2 = [];
-// let n = 0;
 
-// merge(nums1, m, nums2, n);
+var nums3 = [1, 1, 1, 1, 1];
+var val3 = 1;
+var expectedNums3 = [];
 
-// console.log(nums1);
+var nums4 = [5, 2, 8, 7, 2, 4, 2, 6, 8];
+var val4 = 9;
+var expectedNums4 = [5, 2, 8, 7, 2, 4, 2, 6, 8];
 
-// let nums1 = [1, 2, 3];
-// let m = 3;
+var nums5 = [5, 5, 5, 5, 5];
+var val5 = 5;
+var expectedNums5 = [];
 
-// let nums2 = [];
-// let n = 0;
+var k1 = removeElement(nums5, val5);
 
-// merge(nums1, m, nums2, n);
 
-// console.log(nums1); // Expected output: [1, 2, 3]
+// Debug information
+console.log('Modified nums:', nums5);
+console.log('Returned k:', k1);
 
-// let nums1 = [0];
-// let m = 0;
+// console.assert(k1 === expectedNums3.length);
+// sort(nums3, 0, k1);
+// for (var i = 0; i < k1; i++) {
+//     console.assert(nums3[i] === expectedNums3[i]);
+// }
 
-// let nums2 = [1];
-// let n = 1;
-
-// merge(nums1, m, nums2, n);
-
-// console.log(nums1); // Expected output: [1]
