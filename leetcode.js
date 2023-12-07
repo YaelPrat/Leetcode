@@ -1,38 +1,43 @@
 /**
  * @param {number[]} nums
- * @return {number}
+ * @param {number} k
+ * @return {void} Do not return anything, modify nums in-place instead.
  */
-var majorityElement = function(nums) {
-    let n = nums.length;
-    if(n === 1) return nums[0];
-    if(n%2 ===1 ) n-=1; // case it is od number
-    
-    let sortedNums = nums.sort((a,b)=>a-b);
-    // console.log("the array: "+ sortedNums)
-    return sortedNums[n/2];
+var rotate = function(nums, k) {
+    if(nums.length === 0) return;
+    k %=nums.length;
+    nums.reverse();
+    let start =0;
+    let end = k-1;
+    while(start < end){
+        let temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+        start++; end --;
+    }
+
+    start =k;
+    end = nums.length-1;
+    while(start < end){
+        let temp = nums[start];
+        nums[start] = nums[end];
+        nums[end] = temp;
+        start++; end --;
+    }
+
 };
 
-// Normal cases
-const nums1 = [3, 2, 3]; // Majority element is 3
-const nums2 = [2, 2, 1, 1, 1, 2, 2]; // Majority element is 2
-const nums3 = [1, 2, 2, 3, 2, 4, 2]; // Majority element is 2
+const example1 = [1, 2, 3, 4, 5, 6, 7];
+rotate(example1, 3);
 
-// Edge cases
-const nums4 = [1]; // Single element array, majority element is 1
-const nums5 = [1, 1, 1, 1, 1, 1, 2, 2, 2]; // Majority element is 1
-const nums6 = [3, 3, 4, 2, 4, 4, 2, 4, 4]; // Majority element is 4
+const example2 = [0, -1, -2, -3, -4];
+rotate(example2, 2);
 
-// Large array with majority element
-const nums7 = Array.from({ length: 10000 }, (_, index) => index % 3 === 0 ? 42 : index % 3 === 1 ? 7 : 15);
+const emptyArray = [];
+rotate(emptyArray, 3);
 
-console.log(majorityElement(nums1)); // Expected output: 3 V
-console.log(majorityElement(nums3)); // Expected output: 2 V
-console.log(majorityElement(nums5)); // Expected output: 1 V
-console.log(majorityElement(nums6)); // Expected output: 4 V
+const singleElementArray = [42];
+rotate(singleElementArray, 5);
 
-
-console.log(majorityElement(nums2)); // Expected output: 2 X
-
-console.log(majorityElement(nums4)); // Expected output: 1 X
-
-// console.log(majorityElement(nums7)); // Expected output: 42 X
+const largeArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+rotate(largeArray, 15);
