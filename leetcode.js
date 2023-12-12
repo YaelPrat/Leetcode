@@ -1,63 +1,64 @@
-var maxProfit = function(prices) {
-    if(prices.length < 2) return 0;
-  
-    let min =prices[0];
-    let max= 0;
+// var maxProfit = function(prices) {
+//     if(prices.length < 2) return 0;
 
-    let totalProfit=0;
-    let i= 1;
+//     let totalProfit=0;
+//     let i= 1;
    
-    if(prices[0] <= prices[1]){
-        let j = 1;
-        while(j < prices.length){
-            //find local max
-            if(prices[j-1] <= prices [j] && prices[j+1] < prices[j]){
-                max = prices[j];
-                totalProfit += (max-min);
-                max = min = 0;
-                break;
-            }
+//     if(prices[0] <= prices[1]){
+//         let j = 1;
+//         while(j < prices.length){
+//             //find local max
+//             if(prices[j-1] <= prices [j] && prices[j+1] < prices[j]){
+//                 totalProfit += (prices[j]-prices[0]);
+//                 break;
+//             }
 
-            if(j === prices.length-1){
-                if(prices[j] > prices [0]){
-                    max = prices[j];
-                    totalProfit += (prices[j]-min);
-                }
-                return totalProfit;
-            }
-            j++;
-        }
-        i = j;
-    }
+//             if(j === prices.length-1){
+//                 if(prices[j] > prices [0]){
+//                     totalProfit += (prices[j]-prices[0]);
+//                 }
+//                 return totalProfit;
+//             }
+//             j++;
+//         }
+//         i = j;
+//     }
     
-    while (i< prices.length-1) {
+//     while (i< prices.length-1) {
 
-        //case of local minimum
-        if (prices[i-1] >= prices [i] && prices[i+1] > prices[i]){
-            min = prices[i];
-            let j = i+1;
-            while(j < prices.length){
-                //find local max
-                if(prices[j-1] <= prices [j] && prices[j+1] < prices[j]){
-                    if(j === prices.length-1) return 0;
-                    max = prices[j];
-                    totalProfit += (max-min);
-                    break;
-                }
-                if(j === prices.length-1){
-                    max = prices[j];
-                    totalProfit += (max-min);
-                    return totalProfit;
-                }
-                j++;
-            }
+//         //case of local minimum
+//         if (prices[i-1] >= prices [i] && prices[i+1] > prices[i]){
+//             let j = i+1;
+//             while(j < prices.length){
+//                 //find local max
+//                 if(prices[j-1] <= prices [j] && prices[j+1] < prices[j]){
+//                     if(j === prices.length-1) return 0;
+//                     totalProfit += ( prices[j]- prices[i]);
+//                     break;
+//                 }
+//                 if(j === prices.length-1){
+//                     totalProfit += ( prices[j]- prices[i]);
+//                     return totalProfit;
+//                 }
+//                 j++;
+//             }
+//         }
+//         i++;
+//     }
+
+//     return totalProfit;
+
+// };
+
+const maxProfit = function(prices) {
+    let profit = 0;
+    for(let i=1;i<prices.length;i++) {
+        if(prices[i] > prices[i-1]) {
+            profit += prices[i] - prices[i-1];
         }
-        i++;
     }
-
-    return totalProfit;
-
-};
+    return profit;
+}
 
 // Test Case 1
 const prices1 = [7, 1, 5, 3, 6, 4];
