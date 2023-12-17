@@ -1,60 +1,85 @@
 /**
- * @param {number[]} nums
- * @return {boolean}
+ * @param {string} s
+ * @return {number}
  */
-var canJump = function(nums) {
-    
-    if (nums.length === 1 && nums[0] === 0 ) {
-        return false;
+var lengthOfLastWord = function(s) {
+    if(s.length === 1) return 1;
+    let i = s.length-1;
+    let wordLen=0;
+  while( i > 0){
+    if(s[i] === ' '){
+        i -- ;
+    }   
+    else{
+        break;
     }
-    let isZero = nums.includes(0);
-    if(isZero === false) return true;
+  }//while
 
-    let maxReachIndex= nums[0];
-    for(let i=0; i< nums.length-1; i++){
-        maxReachIndex = Math.max(maxReachIndex, i+nums[i])
-        if(nums[i] === 0 && maxReachIndex <= i){
-            return false;
-        }
+  while(i>=0)
+  {
+    if(s[i] !== ' '){
+        i -- ;
+        wordLen++;
+    }else{
+        return wordLen;
     }
-    return true;
+  }
+
+    return wordLen;
     
 };
 
+//I see a builtin solution so ill add it here:
 
-// Test Case 1
-const nums1 = [2, 0,0];
-// Can jump 1 step from index 0 to 1, then 3 steps to the last index.
-const expected1 = true;
+const lengthOfLastWord2 =function (s){
+    return s.trimEnd().split(' ').pop().length
+}
 
-// Test Case 2
-const nums2 = [3, 2, 1, 0, 4];
-// Cannot reach the last index because the maximum jump length is 0 at index 3.
-const expected2 = false;
 
-// Test Case 3 (Edge Case: Single Element)
-const nums3 = [5];
-// Only one element, and it can directly reach the last index.
-const expected3 = true;
+// Example 1
+const s1 = "a ";
+const expected1 = 1;
+console.log("Example 1:", lengthOfLastWord2(s1), "Expected:", expected1);
+console.log("---");
 
-// Test Case 4 (Edge Case: All Zeros Except Last Element)
-const nums4 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 5];
-// The last element has a jump length of 5, so it can reach the last index.
-const expected4 = true;
+// Example 2
+const s2 = "   fly me   to   the moon  ";
+const expected2 = 4;
+console.log("Example 2:", lengthOfLastWord2(s2), "Expected:", expected2);
+console.log("---");
 
-// Test Case 5 (Edge Case: All Zeros Except Last Two Elements)
-const nums5 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2];
-// The second-to-last element has a jump length of 0, so it cannot reach the last index.
-const expected5 = false;
+// Example 3
+const s3 = "luffy is still joyboy";
+const expected3 = 6;
+console.log("Example 3:", lengthOfLastWord2(s3), "Expected:", expected3);
+console.log("---");
 
-// Test Case 6 (Edge Case: All Ones)
-const nums6 = [1, 1, 1, 1, 1, 1];
-// Can jump 1 step from each position, and it can reach the last index.
-const expected6 = true;
+// Edge Case 1: Minimum input length
+const sEmpty = "a";
+const expectedEmpty = 1;
+console.log("Edge Case 1:", lengthOfLastWord2(sEmpty), "Expected:", expectedEmpty);
+console.log("---");
 
-console.log("Test Case 1:", canJump(nums1) === expected1);
-console.log("Test Case 2:", canJump(nums2) === expected2);
-console.log("Test Case 3:", canJump(nums3) === expected3);
-console.log("Test Case 4:", canJump(nums4) === expected4);
-console.log("Test Case 5:", canJump(nums5) === expected5);
-console.log("Test Case 6:", canJump(nums6) === expected6);
+// Edge Case 2: Multiple spaces between words
+const sMultipleSpaces = "word1    word2   word3";
+const expectedMultipleSpaces = 5;
+console.log("Edge Case 2:", lengthOfLastWord2(sMultipleSpaces), "Expected:", expectedMultipleSpaces);
+console.log("---");
+
+// Edge Case 3: All spaces
+const sAllSpaces = "      ";
+const expectedAllSpaces = 0;
+console.log("Edge Case 3:", lengthOfLastWord2(sAllSpaces), "Expected:", expectedAllSpaces);
+console.log("---");
+
+// // Edge Case 4: String with a single space
+// const sSingleSpace = " ";
+// const expectedSingleSpace = 0;
+// console.log("Edge Case 4:", lengthOfLastWord(sSingleSpace), "Expected:", expectedSingleSpace);
+// console.log("---");
+
+// Edge Case 5: String with multiple spaces at the end
+const sSpacesAtEnd = "word1 word2      ";
+const expectedSpacesAtEnd = 5;
+console.log("Edge Case 5:", lengthOfLastWord2(sSpacesAtEnd), "Expected:", expectedSpacesAtEnd);
+console.log("---");
