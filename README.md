@@ -4,7 +4,7 @@ This repository contains my JavaScript solutions to various LeetCode problems. E
 
 ## Folder Structure
 
-The repository is organized into branches corresponding to different LeetCode problems. Each branch contains:
+The repository is organized into branches corresponding to different LeetCode problems.
 
 
 ## Usage
